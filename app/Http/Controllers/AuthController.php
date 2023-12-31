@@ -24,9 +24,12 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
+        if (empty($credentials['email']) || empty($credentials['password'])) {
+            // Tampilkan pesan SweetAlert2 jika email atau password kosong
+            return response()->json(['error' => 'Email dan password harus diisi'], 422);
+        }
+    
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
             Session::flash('success', 'Login Berhasil!');
             return redirect()->intended('/beranda');
         }
