@@ -103,6 +103,13 @@
                                 </li>
                                 <li>
                                     <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                        href="/akun">
+                                        <i class="fa-solid fa-chalkboard-user"></i>
+                                        Akun
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                                         href="/dosen">
                                         <i class="fa-solid fa-chalkboard-user"></i>
                                         Data Dosen

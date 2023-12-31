@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -26,12 +27,13 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
+            Session::flash('success', 'Login Berhasil!');
             return redirect()->intended('/beranda');
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        Session::flash('error', 'Login Gagal! Periksa kembali Email dan Password Anda.');
+
+        return redirect()->route('login');
     }
     public function logout()
     {

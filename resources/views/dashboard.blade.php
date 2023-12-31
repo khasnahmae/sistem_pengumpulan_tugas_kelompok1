@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (Session::has('success'))
+        <div class="alert  d-flex align-items-center ">
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+            </div>
+        </div>
+    @endif
     <div class="rounded-2 bg-light container mb-5 mt-5 p-5 shadow-lg">
         <div class="row">
             <div class="row mb-3 text-center">

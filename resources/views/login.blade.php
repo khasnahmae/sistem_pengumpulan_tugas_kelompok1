@@ -16,9 +16,17 @@
     </style>
 </head>
 
+
 <body>
     <!-- Jumbotron -->
     <div class="text-lg-start m-5 px-4 py-5 text-center" style="background-color: hsl(0, 0%, 96%)">
+        @if(Session::has('error'))
+        <div class="alert d-flex align-items-center justify-content-center" role="alert">
+            <div class="alert alert-danger">
+                {{ Session::get('error') }}
+            </div>
+        </div>
+        @endif
         <div class="container">
             <div class="row gx-lg-5 align-items-center">
                 <div class="col-lg-6 mb-lg-0 mb-5">

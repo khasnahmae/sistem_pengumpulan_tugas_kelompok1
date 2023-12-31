@@ -26,7 +26,7 @@ class User extends Authenticatable
 
     public function mahasiswa()
     {
-        return $this->hasOne(Mahasiswa::class, 'users_id'); // Sesuaikan dengan nama kolom yang digunakan
+        return $this->hasOne(Mahasiswa::class, 'users_id'); 
     }
 
 
