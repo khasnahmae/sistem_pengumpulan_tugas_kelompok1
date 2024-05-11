@@ -80,6 +80,7 @@
                             <i class="fas fa-user-tie"></i>
                             <span>Data Dosen</span></a>
                     </li>
+
                     {{-- End Dosen Nav Item --}}
 
                     {{-- Mahasiswa Nav Item --}}
@@ -93,6 +94,18 @@
                             <span>Data Mahasiswa</span></a>
                     </li>
                     {{-- End Mahasiswa Nav Item --}}
+
+                    {{-- Mapel Nav Item --}}
+                    <hr class="sidebar-divider">
+                    <div class="sidebar-heading">
+                      Mapel
+                    </div>
+                    <li class="{{ strpos(request()->url(), 'mapel') !== false ? 'nav-item active' : 'nav-item' }}">
+                        <a class="nav-link" href="/mapel">
+                            <i class="fas fa-book"></i>
+                            <span>Data Mapel</span></a>
+                    </li>
+                    {{-- End Mapel Nav Item --}}
                 @break
 
                 {{-- Jika Role Dosen --}}

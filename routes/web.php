@@ -5,6 +5,7 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PengumpulanController;
 use App\Http\Controllers\TugasController;
+use App\Http\Controllers\MapelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,6 +54,15 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::get('/akun/{id}', [AuthController::class, 'show'])->name('mahasiswa.show');
     Route::post('/akun/{id}', [AuthController::class, 'update']);
     Route::delete('/akun/destroy/{id}', [AuthController::class, 'destroy']);
+
+    Route::get('/mapel', [MapelController::class, 'index'])->name('mapel.index');
+Route::get('/mapel/create', [MapelController::class, 'create'])->name('mapel.create');
+Route::post('/mapel', [MapelController::class, 'store'])->name('mapel.store');
+Route::get('/mapel/{id}/edit', [MapelController::class, 'edit'])->name('mapel.edit');
+Route::put('/mapel/{id}', [MapelController::class, 'update'])->name('mapel.update');
+Route::get('/mapel/{id}', [MapelController::class, 'show'])->name('mapel.show');
+Route::delete('/mapel/{id}', [MapelController::class, 'destroy'])->name('mapel.destroy');
+
 
 });
 Route::group(['middleware' => 'checkRole:dosen'], function () {
