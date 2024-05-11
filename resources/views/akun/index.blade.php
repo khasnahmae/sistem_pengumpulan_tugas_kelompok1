@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="rounded-2 bg-light container mb-5 mt-5 p-5 shadow-lg">
+    <div class="rounded-4 mb-5 p-5 card">
         <div class="d-flex justify-content-between">
             <h2>Data Pengguna</h2>
 
@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-    
+
                 @foreach ($akun as $user => $row)
                     <tr>
                         <td>{{ $akun->firstItem() + $user }}</td>
