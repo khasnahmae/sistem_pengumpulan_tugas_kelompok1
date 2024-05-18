@@ -24,17 +24,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($akun as $user)
+    
+                @foreach ($akun as $user => $row)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->username }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->role }}</td>
+                        <td>{{ $akun->firstItem() + $user }}</td>
+                        <td>{{ $row->name }}</td>
+                        <td>{{ $row->username }}</td>
+                        <td>{{ $row->email }}</td>
+                        <td>{{ $row->role }}</td>
                         <td>
-                            <a href="{{ url('akun/detail', $user->id) }}" class="btn btn-info btn-sm">Detail</a>
-                            <a href="{{ url('akun/edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ url('akun/destroy', $user->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ url('akun/detail', $row->id) }}" class="btn btn-info btn-sm">Detail</a>
+                            <a href="{{ url('akun/edit', $row->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ url('akun/destroy', $row->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm"

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('nilai')->nullable();
             $table->dateTime('tgl_pengumpulan');
             $table->string('komentar')->nullable();
-            $table->foreign('id_tugass')->references('id')->on('tugass');
-            $table->foreign('id_mahasiswas')->references('id')->on('mahasiswas');
+            $table->foreign('id_tugass')->references('id')->on('tugass')->onDelete('cascade');
+            $table->foreign('id_mahasiswas')->references('id')->on('mahasiswas')->onDelete('cascade');
             $table->timestamps();
         });
     }

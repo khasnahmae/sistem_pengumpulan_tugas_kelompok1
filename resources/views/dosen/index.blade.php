@@ -21,16 +21,16 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($queries as $dosen)
+                @foreach ($queries as $dosen => $row)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $dosen->nip }}</td>
-                        <td>{{ $dosen->nama }}</td>
-                        <td>{{ $dosen->keilmuan }}</td>
+                        <td>{{ $queries->firstItem() + $dosen }}</td>
+                        <td>{{ $row->nip }}</td>
+                        <td>{{ $row->nama }}</td>
+                        <td>{{ $row->keilmuan }}</td>
                         <td>
-                            <a href="{{ route('dosen.show', $dosen->id) }}" class="btn btn-info btn-sm">Detail</a>
-                            <a href="{{ route('dosen.edit', $dosen->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('dosen.destroy', $dosen->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('dosen.show', $row->id) }}" class="btn btn-info btn-sm">Detail</a>
+                            <a href="{{ route('dosen.edit', $row->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('dosen.destroy', $row->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm"

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengumpulan;
 use App\Models\Mahasiswa;
+use App\Models\Dosen;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -140,13 +142,36 @@ class AuthController extends Controller
     }
 
     public function destroy($id)
-    {
-        // User::find($id)->delete();
-        // Mahasiswa::where('users_id', $id)->delete();
-
+{
+    try {
+        // Find the user
         $user = User::findOrFail($id);
-        Mahasiswa::where('users_id', $user->id)->delete();
+
+        // Find associated mahasiswa and dosen
+        $mahasiswa = Mahasiswa::where('users_id', $id)->first();
+        $dosen = Dosen::where('users_id', $id)->first();
+
+        if ($mahasiswa) {
+            // Find and delete related records in pengumpulans for mahasiswa
+            Pengumpulan::where('id_mahasiswas', $mahasiswa->id)->delete();
+            // Delete the associated mahasiswa record
+            $mahasiswa->delete();
+        }
+
+        if ($dosen) {
+            // Find and delete related records in some_table for dosen (replace some_table with the actual table name)
+            // SomeTable::where('users_id', $dosen->id)->delete();
+            // Delete the associated dosen record
+            $dosen->delete();
+        }
+
+        // Finally, delete the user record
         $user->delete();
-        return redirect('akun')->with('success', 'Data Mahasiswa berhasil dihapus');
+
+        return redirect('akun')->with('success', 'Data Mahasiswa dan Dosen berhasil dihapus');
+    } catch (\Exception $e) {
+        // Handle exceptions, log errors, or return an appropriate response
+        return redirect('akun')->with('error', 'Error: ' . $e->getMessage());
     }
+}
 }

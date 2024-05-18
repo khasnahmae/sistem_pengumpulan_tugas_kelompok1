@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_dosens');
             $table->unsignedBigInteger('id_mahasiswas')->nullable();
+            $table->unsignedBigInteger('id_kelas');
+            $table->unsignedBigInteger('id_mapel');
             $table->string('matkul');
             $table->string('semester');
             $table->string('pertemuan');
@@ -23,6 +25,8 @@ return new class extends Migration
             $table->string('file_tugas')->nullable();
             $table->foreign('id_dosens')->references('id')->on('dosens');
             $table->foreign('id_mahasiswas')->references('id')->on('mahasiswas');
+            $table->foreign('id_kelas')->references('id')->on('kelass');
+            $table->foreign('id_mapel')->references('id')->on('mapels');
             $table->timestamps();
         });
     }

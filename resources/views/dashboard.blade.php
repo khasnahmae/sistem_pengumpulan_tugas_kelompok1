@@ -23,6 +23,9 @@
                     <div class="row d-flex justify-content-center">
                         <a href="/dosen" class="btn btn-primary btn-lg mt-2" style="width: 300px">Lihat Data Dosen</a>
                     </div>
+                    <div class="row d-flex justify-content-center">
+                        <a href="/kelas" class="btn btn-primary btn-lg mt-2" style="width: 300px">Lihat Data Kelas</a>
+                    </div>
                 @break
 
                 @case('dosen')

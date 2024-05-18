@@ -61,7 +61,6 @@ class DosenController extends Controller
         }
 
         Dosen::create([
-            'users_id' => auth()->user()->id,
             'nip' => $request->nip, // Changed from telepon to nip
             'nama' => $request->nama,
             'codename' => $request->codename,

@@ -22,17 +22,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($queries as $mahasiswa)
+                @foreach ($queries as $mahasiswa => $row)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $mahasiswa->nim }}</td>
-                        <td>{{ $mahasiswa->nama }}</td>
-                        <td>{{ $mahasiswa->prodi }}</td>
-                        <td>{{ $mahasiswa->semester }}</td>
+                        <td>{{ $queries->firstItem() + $mahasiswa }}</td>
+                        <td>{{ $row->nim }}</td>
+                        <td>{{ $row->nama }}</td>
+                        <td>{{ $row->prodi }}</td>
+                        <td>{{ $row->semester }}</td>
                         <td>
-                            <a href="{{ route('mahasiswa.detail', $mahasiswa->id) }}" class="btn btn-info btn-sm">Detail</a>
-                            <a href="{{ route('mahasiswa.edit', $mahasiswa->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('mahasiswa.destroy', $mahasiswa->id) }}" method="POST"
+                            <a href="{{ route('mahasiswa.detail', $row->id) }}" class="btn btn-info btn-sm">Detail</a>
+                            <a href="{{ route('mahasiswa.edit', $row->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('mahasiswa.destroy', $row->id) }}" method="POST"
                                 style="display:inline;">
                                 @csrf
                                 @method('DELETE')

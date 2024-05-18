@@ -129,7 +129,7 @@ class TugasController extends Controller
             'file_tugas.mimes' => 'Tipe File harus PDF',
             'file_tugas.max' => 'Ukuran file tidak boleh dari 10 MB',
         ]);
-        
+
         // Upload foto jika ada
         if ($request->hasFile('file_tugas')) {
             Storage::delete('storage/filetugas/' . $tugas->file_tugas);
@@ -172,6 +172,9 @@ class TugasController extends Controller
     public function destroy($id)
     {
         $tugas = Tugas::findOrFail($id);
+
+        $pengumpulan = Pengumpulan::where('id_tugass', $id)->delete();
+
         $tugas->delete();
         Storage::delete('public/filetugas/' . $tugas->file_tugas);
         return redirect()

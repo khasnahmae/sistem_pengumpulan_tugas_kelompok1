@@ -57,7 +57,6 @@ class MahasiswaController extends Controller
             $foto->storeAs('public/mahasiswa/' . $filename);
         }
         Mahasiswa::create([
-            'users_id' => auth()->user()->id,
             'nim' => $request->nim,
             'nama' => $request->nama,
             'tgl_lahir' => $request->tgl_lahir,
