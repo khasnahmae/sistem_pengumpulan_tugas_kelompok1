@@ -2,303 +2,143 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Mazer Admin Dashboard</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SB Admin 2 - Dashboard</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="{{ asset('templates/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="{{ asset('templates/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
+    <link rel="shortcut icon" href="{{ asset('mazer/assets/compiled/svg/favicon.svg') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('mazer/assets/compiled/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('mazer/assets/compiled/css/app-dark.css') }}">
+    <link rel="stylesheet" href="{{ asset('mazer/assets/compiled/css/iconly.css') }}">
 </head>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Bootstrap JS Bundle with Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center">
-                <div class="sidebar-brand-icon">
-                    <i class="fas fa-chalkboard-teacher"></i>
+<body>
+    <script src="{{ asset('assets/static/js/initTheme.js') }}"></script>
+    <div id="app">
+        <div id="sidebar">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header position-relative">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="logo">
+                            <a href="index.html"><img src="{{ asset('mazer/assets/compiled/svg/logo.svg') }}"
+                                    alt="Logo"></a>
+                        </div>
+                        <div class="theme-toggle d-flex align-items-center mt-2 gap-2">
+                            <!-- Theme Toggle Icons -->
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img"
+                                class="iconify iconify--system-uicons" width="20" height="20"
+                                viewBox="0 0 21 21">
+                                <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <!-- SVG Path -->
+                                </g>
+                            </svg>
+                            <div class="form-check form-switch fs-6">
+                                <input class="form-check-input me-0" type="checkbox" id="toggle-dark"
+                                    style="cursor: pointer">
+                                <label class="form-check-label"></label>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img"
+                                class="iconify iconify--mdi" width="20" height="20">
+                                <!-- SVG Path -->
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="sidebar-brand-text mx-3">S.M.T</div>
-            </a>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <!-- Sidebar items based on user role -->
+                        @switch(auth()->user()->role)
+                            @case('admin')
+                                <li class="sidebar-item {{ strpos(request()->url(), 'akun') !== false ? 'active' : '' }}">
+                                    <a class="sidebar-link" href="/akun">
+                                        <i class="iconly-boldUser"></i>
+                                        <span>Data Akun</span>
+                                    </a>
+                                </li>
+                                <!-- Other admin links -->
+                            @break
 
-            <!-- Top Nav Item Divider -->
-            <hr class="sidebar-divider my-0">
+                            @case('dosen')
+                                <li class="sidebar-item {{ strpos(request()->url(), 'datamhs') !== false ? 'active' : '' }}">
+                                    <a class="sidebar-link" href="/datamhs">
+                                        <i class="iconly-boldUser"></i>
+                                        <span>Data Mahasiswa</span>
+                                    </a>
+                                </li>
+                                <!-- Other dosen links -->
+                            @break
 
-            {{-- Nav Item Dashboard --}}
-            <li class="{{ strpos(request()->url(), 'beranda') !== false ? 'nav-item active' : 'nav-item' }}">
-                <a class="nav-link" href="/beranda">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-            {{-- End Nav Item Dashboard --}}
+                            @case('mahasiswa')
+                                <li class="sidebar-item {{ strpos(request()->url(), 'tugasmhs') !== false ? 'active' : '' }}">
+                                    <a class="sidebar-link" href="/tugasmhs">
+                                        <i class="iconly-boldBook"></i>
+                                        <span>Data Tugas</span>
+                                    </a>
+                                </li>
+                                <!-- Other mahasiswa links -->
+                            @break
 
-            {{-- Logic Nav Item --}}
-            @switch(auth()->user()->role)
-                {{-- Jika Role Admin --}}
-                @case('admin')
-                    {{-- Akun Nav Item --}}
-                    <hr class="sidebar-divider">
-                    <div class="sidebar-heading">
-                        Akun
-                    </div>
-                    <li class="{{ strpos(request()->url(), 'akun') !== false ? 'nav-item active' : 'nav-item' }}">
-                        <a class="nav-link" href="/akun">
-                            <i class="fas fa-user-tie"></i>
-                            <span>Data Akun</span></a>
-                    </li>
-                    {{-- End Dosen Nav Item --}}
-
-                    {{-- Dosen Nav Item --}}
-                    <hr class="sidebar-divider">
-                    <div class="sidebar-heading">
-                        Dosen
-                    </div>
-                    <li class="{{ strpos(request()->url(), 'dosen') !== false ? 'nav-item active' : 'nav-item' }}">
-                        <a class="nav-link" href="/dosen">
-                            <i class="fas fa-user-tie"></i>
-                            <span>Data Dosen</span></a>
-                    </li>
-                    {{-- End Dosen Nav Item --}}
-
-                    {{-- Mahasiswa Nav Item --}}
-                    <hr class="sidebar-divider">
-                    <div class="sidebar-heading">
-                        Mahasiswa
-                    </div>
-                    <li class="{{ strpos(request()->url(), 'mahasiswa') !== false ? 'nav-item active' : 'nav-item' }}">
-                        <a class="nav-link" href="/mahasiswa">
-                            <i class="fas fa-user-graduate"></i>
-                            <span>Data Mahasiswa</span></a>
-                    </li>
-                    {{-- End Mahasiswa Nav Item --}}
-                @break
-
-                {{-- Jika Role Dosen --}}
-                @case('dosen')
-                    {{-- Mahasiswa Nav Item --}}
-                    <hr class="sidebar-divider">
-                    <div class="sidebar-heading">
-                        Mahasiswa
-                    </div>
-                    <li class="{{ strpos(request()->url(), 'datamhs') !== false ? 'nav-item active' : 'nav-item' }}">
-                        <a class="nav-link" href="/datamhs">
-                            <i class="fas fa-user-graduate"></i>
-                            <span>Data Mahasiswa</span></a>
-                    </li>
-                    {{-- End Mahasiswa Nav Item --}}
-
-                    {{-- Tugas Nav Item --}}
-                    <hr class="sidebar-divider">
-                    <div class="sidebar-heading">
-                        Tugas
-                    </div>
-                    <li class="{{ strpos(request()->url(), 'tugas') !== false ? 'nav-item active' : 'nav-item' }}">
-                        <a class="nav-link" href="/tugas">
-                            <i class="fas fa-fw fa-tasks"></i>
-                            <span>Data Tugas</span></a>
-                    </li>
-                    {{-- End Tugas Nav Item --}}
-                @break
-
-                {{-- Jika Role Mahasiswa --}}
-                @case('mahasiswa')
-                    {{-- Tugas Nav Item --}}
-                    <hr class="sidebar-divider">
-                    <div class="sidebar-heading">
-                        Tugas
-                    </div>
-                    <li class="{{ strpos(request()->url(), 'tugasmhs') !== false ? 'nav-item active' : 'nav-item' }}">
-                        <a class="nav-link" href="/tugasmhs">
-                            <i class="fas fa-fw fa-tasks"></i>
-                            <span>Data Tugas</span></a>
-                    </li>
-                    {{-- End Tugas Nav Item --}}
-                @break
-
-                @default
-            @endswitch
-            {{-- End Logic Nav Item --}}
-
-            <!-- Bottom Nav Item Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="d-none d-md-inline text-center">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-        </ul>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
-            <div id="content">
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light topbar static-top mb-4 bg-white shadow">
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Pill Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter"></span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right animated--grow-in shadow"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Pemberitahuan
-                                </h6>
-                                {{--
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item small text-center text-gray-500" href="#">Show All
-                                    Alerts</a> --}}
-                            </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span
-                                    class="d-none d-lg-inline small mr-2 text-gray-600">{{ Auth::user()->name }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{ asset('templates/img/undraw_profile.svg') }}">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right animated--grow-in shadow"
-                                aria-labelledby="userDropdown">
-                                @switch(auth()->user()->role)
-                                    @case('dosen')
-                                        <a class="dropdown-item" href="/profildsn">
-                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Profile
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                    @break
-
-                                    @case('mahasiswa')
-                                        <a class="dropdown-item" href="/profilmhs">
-                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Profile
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                    @break
-
-                                    @default
-                                @endswitch
-                                <a class="dropdown-item" onclick="confirmLogout()">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
+                            @default
+                        @endswitch
                     </ul>
+                </div>
+            </div>
+        </div>
 
+        <div id="main" class="layout-navbar">
+            <header class="mb-3">
+                <nav class="navbar navbar-expand navbar-light bg-white">
+                    <a class="burger-btn d-block d-xl-none">
+                        <i class="bi bi-justify fs-3"></i>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mb-lg-0 mb-2 ms-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @switch(auth()->user()->role)
+                                        @case('dosen')
+                                            <li><a class="dropdown-item" href="/profildsn">Profile</a></li>
+                                        @break
+
+                                        @case('mahasiswa')
+                                            <li><a class="dropdown-item" href="/profilmhs">Profile</a></li>
+                                        @break
+
+                                        @default
+                                    @endswitch
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" onclick="confirmLogout()">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
-                <!-- End of Topbar -->
+            </header>
 
-                <!-- Begin Page Content -->
+            <main class="content">
                 <div class="container-fluid">
                     @yield('content')
                 </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright my-auto text-center">
-                        <span>Copyright &copy; KELOMPOK 1 2024</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
+            </main>
         </div>
-        <!-- End of Content Wrapper -->
-
     </div>
-    <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-
-    <!-- SweetAlert CDN -->
+    <script src="{{ asset('mazer/assets/compiled/js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('templates/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('templates/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="{{ asset('templates/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('templates/js/sb-admin-2.min.js') }}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{ asset('templates/vendor/chart.js/Chart.min.js') }}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('templates/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('templates/js/demo/chart-pie-demo.js') }}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{ asset('templates/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('templates/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('templates/js/demo/datatables-demo.js') }}"></script>
-
-
-    {{-- KUMPULAN ALERT --}}
     <script>
         function confirmLogout() {
             Swal.fire({
@@ -310,13 +150,11 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Jika pengguna mengonfirmasi logout, arahkan ke tautan logout
                     window.location.href = '/logout';
                 }
             });
         }
     </script>
-
 </body>
 
 </html>
