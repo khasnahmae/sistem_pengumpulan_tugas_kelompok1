@@ -35,6 +35,17 @@
                     <div>{{ $message }}</div>
                 @enderror
             </div>
+            <div class="form-group col-6">
+                <label for="id_kelass">Kelas</label>
+                <select class="form-control" name="id_kelass" id="id_kelass">
+                    @foreach ($kelass as $kelas)
+                        <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
+                    @endforeach
+                </select>
+                @error('id_kelass')
+                    <div>{{ $message }}</div>
+                @enderror
+            </div>
             <div class="d-flex justify-content-end mt-3">
                 <button type="submit" class="btn btn-primary me-3">Simpan</button>
                 <a href="{{ route('mapel.index') }}" class="btn btn-secondary">Kembali</a>

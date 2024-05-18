@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mapel;
 use App\Models\Dosen;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,8 +25,9 @@ class MapelController extends Controller
      */
     public function create()
     {
-        $dosens = Dosen::all(); // Ambil semua data dosen
-        return view('mapel.create', compact('dosens')); // Kirim data ke view
+        $dosens = Dosen::all();
+        $kelass = Kelas::all();
+        return view('mapel.create', compact('dosens', 'kelass')); // Kirim data ke view
     }
 
     /**
@@ -37,17 +39,21 @@ class MapelController extends Controller
             'nama_mapel' => 'required',
             'prodi' => 'required',
             'id_dosens' => 'required|exists:dosens,id', // Validasi untuk id_dosens
+            'id_kelass' => 'required|exists:kelass,id', // Validasi untuk id_dosens
         ], [
             'nama_mapel.required' => 'Kolom Nama Mapel tidak boleh kosong',
             'prodi.required' => 'Kolom Prodi tidak boleh kosong',
             'id_dosens.required' => 'Kolom Dosen tidak boleh kosong',
             'id_dosens.exists' => 'Dosen yang dipilih tidak valid',
+            'id_kelass.required' => 'Kolom kelas tidak boleh kosong',
+            'id_kelass.exists' => 'kelas yang dipilih tidak valid',
         ]);
 
         Mapel::create([
             'nama_mapel' => $request->nama_mapel,
             'prodi' => $request->prodi,
             'id_dosens' => $request->id_dosens, // Simpan id_dosens
+            'id_kelass' => $request->id_kelass,
         ]);
 
         return redirect()
@@ -61,8 +67,9 @@ class MapelController extends Controller
     public function edit($id)
     {
         $mapel = Mapel::findOrFail($id);
-        $dosens = Dosen::all(); // Ambil semua data dosen
-        return view('mapel.edit', compact('mapel', 'dosens'));
+        $dosens = Dosen::all();
+        $kelass = Kelas::all();
+        return view('mapel.edit', compact('mapel', 'dosens', 'kelas'));
     }
 
     /**
@@ -74,18 +81,22 @@ class MapelController extends Controller
         $request->validate([
             'nama_mapel' => 'required',
             'prodi' => 'required',
-            'id_dosens' => 'required|exists:dosens,id', // Validasi untuk id_dosens
+            'id_dosens' => 'required|exists:dosens,id',
+            'id_kelass' => 'required|exists:kelass,id',
         ], [
             'nama_mapel.required' => 'Kolom Nama Mapel tidak boleh kosong',
             'prodi.required' => 'Kolom Prodi tidak boleh kosong',
             'id_dosens.required' => 'Kolom Dosen tidak boleh kosong',
             'id_dosens.exists' => 'Dosen yang dipilih tidak valid',
+            'id_kelass.required' => 'Kolom kelas tidak boleh kosong',
+            'id_kelass.exists' => 'kelas yang dipilih tidak valid',
         ]);
 
         $mapel->update([
             'nama_mapel' => $request->nama_mapel,
             'prodi' => $request->prodi,
             'id_dosens' => $request->id_dosens, // Simpan id_dosens
+            'id_kelass' => $request->id_kelass, // Simpan id_dosens
         ]);
 
         return redirect()

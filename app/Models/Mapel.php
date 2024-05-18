@@ -11,8 +11,13 @@ class Mapel extends Model
 
     protected $table = 'mapels';
     protected $guarded = [''];
+
     public function dosen()
     {
         return $this->belongsTo(Dosen::class, 'id_dosens');
+    }
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelass');
     }
 }

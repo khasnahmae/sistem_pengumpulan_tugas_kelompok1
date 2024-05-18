@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kelas extends Model
 {
     protected $table = 'kelass';
-    protected $primaryKey ="id";
+    protected $primaryKey = "id";
     protected $guarded = [''];
 
     /**
@@ -18,5 +18,8 @@ class Kelas extends Model
     {
         return $this->belongsTo(Dosen::class, 'wali_kelas');
     }
-
+    public function mapels()
+    {
+        return $this->hasMany(Mapel::class, 'id_kelass');
+    }
 }

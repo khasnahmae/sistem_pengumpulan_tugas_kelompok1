@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('mapels', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_dosens');
-            // $table->unsignedBigInteger('id_kelass');
+            $table->unsignedBigInteger('id_kelass');
             // $table->unsignedBigInteger('id_prodis');
             $table->string('nama_mapel');
             $table->foreign('id_dosens')->references('id')->on('dosens');
-            // $table->foreign('id_kelass')->references ('id')->on('kelass');
+            $table->foreign('id_kelass')->references('id')->on('kelass');
             // $table->foreign('id_prodis')->references ('id')->on('prodis');
             $table->timestamps();
         });
