@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="rounded-4 card mb-5 p-5">
         <h2>Edit Mapel</h2>
         <form action="{{ route('mapel.update', $mapel->id) }}" method="POST">
             @csrf

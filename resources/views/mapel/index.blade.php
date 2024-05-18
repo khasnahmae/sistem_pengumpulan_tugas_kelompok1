@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="rounded-2 bg-light container mb-5 mt-5 p-5 shadow-lg">
+    <div class="rounded-4 card mb-5 p-5">
         <div class="d-flex justify-content-between">
             <h2>Data Mapel</h2>
             <div class="mb-3">
@@ -27,6 +27,7 @@
                         {{-- <td>{{ $mapel->prodi }}</td> --}}
                         <td>{{ $mapel->dosen->nama ?? 'Tidak ada dosen' }}</td>
                         <td>
+                            <a href="{{ route('mapel.show', $mapel->id) }}" class="btn btn-info btn-sm">Detail</a>
                             <a href="{{ route('mapel.edit', $mapel->id) }}" class="btn btn-warning btn-sm">Edit</a>
                             <form class="d-inline" action="{{ route('mapel.destroy', [$mapel->id]) }}" method="POST"
                                 onsubmit="return confirm('Yakin hapus data?')">

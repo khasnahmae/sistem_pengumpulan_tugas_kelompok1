@@ -110,4 +110,10 @@ class MapelController extends Controller
         $query = Mapel::orderBy('id', 'asc')->paginate(5);
         return view('mapel.detail', ['queries' => $query]);
     }
+
+    public function show($id)
+    {
+        $mapel = Mapel::findOrFail($id);
+        return view('mapel.detail', compact('mapel'));
+    }
 }

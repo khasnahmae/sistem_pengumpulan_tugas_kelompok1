@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="rounded-2 bg-light container mb-5 mt-5 p-5 shadow-lg">
+    <div class="rounded-4 card mb-5 p-5">
         <h2>Tambah Mapel</h2>
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group col-6">
                 <label for="id_dosens">Dosen</label>
-                <select name="id_dosens" id="id_dosens">
+                <select class="form-control" name="id_dosens" id="id_dosens">
                     @foreach ($dosens as $dosen)
                         <option value="{{ $dosen->id }}">{{ $dosen->nama }}</option>
                     @endforeach

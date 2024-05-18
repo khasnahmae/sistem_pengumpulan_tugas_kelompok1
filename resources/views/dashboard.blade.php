@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-                @notifyCss
-                <x-notify::notify />
-                @notifyJs
-    <div class="rounded-2 bg-light container mb-5 mt-5 p-5 shadow-lg">
+    @notifyCss
+    <x-notify::notify />
+    @notifyJs
+    <div class="rounded-4 card mb-5 p-5">
         <div class="col text-center">
             <div class="row">
                 <h3>👋 Hai !, {{ Auth::user()->name }}</h3>
