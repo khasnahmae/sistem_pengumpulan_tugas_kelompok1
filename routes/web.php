@@ -6,6 +6,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PengumpulanController;
 use App\Http\Controllers\TugasController;
+use App\Http\Controllers\MapelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return view('login');
 });
@@ -55,7 +57,17 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::post('/akun/{id}', [AuthController::class, 'update']);
     Route::delete('/akun/destroy/{id}', [AuthController::class, 'destroy']);
 
+
+    Route::get('/mapel', [MapelController::class, 'index'])->name('mapel.index');
+    Route::get('/mapel/create', [MapelController::class, 'create'])->name('mapel.create');
+    Route::post('/mapel', [MapelController::class, 'store'])->name('mapel.store');
+    Route::get('/mapel/{id}/edit', [MapelController::class, 'edit'])->name('mapel.edit');
+    Route::put('/mapel/{id}', [MapelController::class, 'update'])->name('mapel.update');
+    Route::get('/mapel/{id}', [MapelController::class, 'show'])->name('mapel.show');
+    Route::delete('/mapel/{id}', [MapelController::class, 'destroy'])->name('mapel.destroy');
+
     Route::resource('kelas', KelasController::class);
+
 
 });
 Route::group(['middleware' => 'checkRole:dosen'], function () {
@@ -72,7 +84,6 @@ Route::group(['middleware' => 'checkRole:dosen'], function () {
     Route::get('/tugas/pengumpulans', [PengumpulanController::class, 'indexDosen'])->name('pengumpulan.indexDosen');
     Route::get('/tugas/{id}/pengumpulanedit', [PengumpulanController::class, 'edit'])->name('pengumpulan.edit');
     Route::put('/tugas/pengumpulans/{id}', [PengumpulanController::class, 'update'])->name('pengumpulan.update');
-
 });
 Route::group(['middleware' => 'checkRole:mahasiswa'], function () {
 
@@ -81,7 +92,6 @@ Route::group(['middleware' => 'checkRole:mahasiswa'], function () {
     Route::get('/pengumpulan', [PengumpulanController::class, 'index'])->name('pengumpulan.index');
     Route::get('/pengumpulantugas', [PengumpulanController::class, 'index'])->name('pengumpulan.index');
     Route::get('/pengumpulan/create', [PengumpulanController::class, 'create'])->name('pengumpulan.create');
-
 });
 
 

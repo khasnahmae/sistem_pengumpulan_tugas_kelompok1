@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="rounded-4 card mb-5 p-5">
         <h2>Edit Tugas</h2>
         @if (auth()->user()->role == 'dosen')
-        <form action="/tugas/{{ $tugas->id }}/update" method="POST" enctype="multipart/form-data">
+            <form action="/tugas/{{ $tugas->id }}/update" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="matkul">Mata Kuliah:</label>
@@ -28,12 +28,14 @@
                 </div>
                 <div class="form-group">
                     <label for="tgl_dl">Tanggal Deadline:</label>
-                    <input type="date" class="form-control" id="tgl_dl" name="tgl_dl"
-                        value="{{ $tugas->tgl_dl }}" required>
+                    <input type="date" class="form-control" id="tgl_dl" name="tgl_dl" value="{{ $tugas->tgl_dl }}"
+                        required>
                 </div>
                 <div class="form-group col-6">
                     <label for="file_tugas">File Tugas <span class="text-danger">*</span></label>
-                    <input type="file" name="file_tugas" class="form-control-file @error('file_tugas') is-invalid @enderror" placeholder="Pilih File" value="{{ old('file_tugas') }}">
+                    <input type="file" name="file_tugas"
+                        class="form-control-file @error('file_tugas') is-invalid @enderror" placeholder="Pilih File"
+                        value="{{ old('file_tugas') }}">
                     <small>Tipe File: Pdf. Max: 10 MB.</small>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>

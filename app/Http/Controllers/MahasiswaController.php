@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -147,25 +148,25 @@ class MahasiswaController extends Controller
         return redirect()
             ->route('mahasiswa.index')
             ->with('success', 'Data Mahasiswa Berhasil diUpdate');
-   }
+    }
 
-   public function destroy($id)
-   {
-
-       $mahasiswa = Mahasiswa::findOrFail($id);
-       // Hapus mahasiswa dari database
-       $mahasiswa->delete();
-       Storage::delete('public/mahasiswa/' . $mahasiswa->foto);
-
-       return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil dihapus');
-   }
-   public function showProfil()
+    public function destroy($id)
     {
-    // Mengambil ID Dosen dari user yang sedang login
-    $userId = auth()->user()->id;
-    $mahasiswa = Mahasiswa::where('users_id', $userId)->first();
 
-    return view('profilmhs', compact('mahasiswa'));
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        // Hapus mahasiswa dari database
+        $mahasiswa->delete();
+        Storage::delete('public/mahasiswa/' . $mahasiswa->foto);
+
+        return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil dihapus');
+    }
+    public function showProfil()
+    {
+        // Mengambil ID Dosen dari user yang sedang login
+        $userId = auth()->user()->id;
+        $mahasiswa = Mahasiswa::where('users_id', $userId)->first();
+
+        return view('profilmhs', compact('mahasiswa'));
     }
 
     public function kumpulkanTugas(Request $request)

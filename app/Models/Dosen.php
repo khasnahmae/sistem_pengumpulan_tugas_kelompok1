@@ -23,8 +23,11 @@ class Dosen extends Model
         return $this->hasMany(Mahasiswa::class);
     }
     public function pengumpulan()
-{
-    return $this->hasManyThrough(Pengumpulan::class, Tugas::class, 'id_dosens', 'id_tugas');
-}
-
+    {
+        return $this->hasManyThrough(Pengumpulan::class, Tugas::class, 'id_dosens', 'id_tugas');
+    }
+    public function mapels()
+    {
+        return $this->hasMany(Mapel::class, 'id_dosens');
+    }
 }
